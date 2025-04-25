@@ -1,48 +1,49 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using Avalonia.Controls;
 
 namespace CardGame;
 
-public abstract class GameEngine
+public abstract class GameEngine : INotifyPropertyChanged
 {
-    public Player Player1 { get; set; }
-    protected Deck DrawDeck = new Deck();
+    private Player _currentPlayer;
+    public Player CurrentPlayer
+    {
+        get => _currentPlayer;
+        set
+        {
+            if (_currentPlayer != value)
+            {
+                _currentPlayer = value;
+                OnPropertyChanged(nameof(CurrentPlayer)); 
+                OnPropertyChanged(nameof(CurrentPlayerName)); 
+            }
+        }
+    }
+    public List<Player> Players{ get; set; }
+    protected Deck DrawDeck = new Deck(); 
     protected Deck DiscardDeck = new Deck();
+    protected TaskCompletionSource<bool>? WaitForPlayerAction;
+
 
     protected GameEngine()
     {
-        Player1 = new Player();
+        Players = new List<Player>();
     } 
     public abstract void RunGame();
-}
 
-public partial class ExplodingKittens : GameEngine
-{
-   
-    public override void RunGame()
-    {
-        Console.WriteLine("Running exploding kittens");
-    }
-}
+    public abstract void HandleCardClick(Object sender);
+    public string CurrentPlayerName => CurrentPlayer.Name;
+    
+    
+    
+    
+    public event PropertyChangedEventHandler PropertyChanged;
 
-public partial class Uno : GameEngine
-{
-  
-    public override void RunGame()
+    protected virtual void OnPropertyChanged(string propertyName)
     {
-        Console.WriteLine("Running uno");
-        DrawDeck.Shuffle();
-        Player1.Draw(DrawDeck, 19);
-        foreach (var card in Player1.Hand)
-        {
-            Console.WriteLine(card.DisplayName);
-        }
-    }
-}
-
-public partial class Member : GameEngine
-{
-    public override void RunGame()
-    {
-        Console.WriteLine("Running member");
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -7,22 +7,22 @@
         x:Class="CardGame.MainWindow"
         Title="CardGame"
         x:DataType="cardGame:GameEngine">
-    
-    <ScrollViewer HorizontalScrollBarVisibility="Hidden">
-        <ItemsControl ItemsSource="{Binding Player1.Hand}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Height="150" Width="100" Content="{Binding DisplayName}" />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </ScrollViewer>
-
-
-
+    <StackPanel VerticalAlignment="Bottom" Spacing="10">
+        <TextBlock FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"></TextBlock>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="750">
+            <ItemsControl ItemsSource="{Binding CurrentPlayer.Hand}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Height="150" Width="100" Tag="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding DisplayName}" Click="Card_OnClick" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </StackPanel>
+   
 </Window>
