@@ -8,6 +8,10 @@
         Title="CardGame"
         x:DataType="cardGame:GameEngine">
     <StackPanel VerticalAlignment="Bottom" Spacing="10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="130,0,0,0" Spacing="20">
+            <Button Name="LastPlayedCard" Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
+            <Button Click="DrawACard_OnClick">Dobierz Kartę</Button>
+        </StackPanel>
         <TextBlock FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"></TextBlock>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="750">
             <ItemsControl ItemsSource="{Binding CurrentPlayer.Hand}">
@@ -18,7 +22,7 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Height="150" Width="100" Tag="" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding DisplayName}" Click="Card_OnClick" />
+                        <Button Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding DisplayName}" Click="Card_OnClick" />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

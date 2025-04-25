@@ -13,8 +13,8 @@ public partial class MainWindow : Window
         GameEngine = new Uno();
         GameEngine.Players.Add(new Player("Gracz 1"));
         GameEngine.Players.Add(new Player("Gracz 2"));
-        GameEngine.Players.Add(new Player("Gracz 3"));
-        GameEngine.Players.Add(new Player("Gracz 4"));
+       
+        GameEngine.LastPlayedCard = LastPlayedCard;
         GameEngine.RunGame();
         DataContext = GameEngine;
     }
@@ -23,5 +23,9 @@ public partial class MainWindow : Window
     {
        GameEngine.HandleCardClick(sender);
     }
-    
+
+    private void DrawACard_OnClick(object? sender, RoutedEventArgs e)
+    {
+       GameEngine.HandleDrawACardClick(sender);
+    }
 }

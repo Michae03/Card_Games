@@ -13,6 +13,10 @@ public partial class Member : GameEngine
             //clickedCard = kliknięta karta
         }
     }
+    public override void HandleDrawACardClick(object sender)
+    { 
+     
+    }
     public override void RunGame()
     {
         Console.WriteLine("Running member");

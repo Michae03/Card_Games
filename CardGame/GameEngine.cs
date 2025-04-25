@@ -26,6 +26,7 @@ public abstract class GameEngine : INotifyPropertyChanged
     protected Deck DrawDeck = new Deck(); 
     protected Deck DiscardDeck = new Deck();
     protected TaskCompletionSource<bool>? WaitForPlayerAction;
+    public Button LastPlayedCard {get;  set; }
 
 
     protected GameEngine()
@@ -34,11 +35,30 @@ public abstract class GameEngine : INotifyPropertyChanged
     } 
     public abstract void RunGame();
 
+    public void EndGame(Player player)
+    {
+        Console.WriteLine(player.Name + " WYGRAl!!!!!");
+    }
+    
+    public async Task PlayerTurn()
+    {
+        WaitForPlayerAction = new TaskCompletionSource<bool>();
+        await WaitForPlayerAction.Task;
+        WaitForPlayerAction = null;
+    }
+    public void EndTurn()
+    {
+        if (WaitForPlayerAction != null)
+        {
+            WaitForPlayerAction.TrySetResult(true);
+        }
+    }
+
     public abstract void HandleCardClick(Object sender);
+
+    public abstract void HandleDrawACardClick(Object sender);
+    
     public string CurrentPlayerName => CurrentPlayer.Name;
-    
-    
-    
     
     public event PropertyChangedEventHandler PropertyChanged;
 

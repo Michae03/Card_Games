@@ -13,6 +13,10 @@ public partial class ExplodingKittens : GameEngine
             //clickedCard = kliknięta karta
         }
     }
+    public override void HandleDrawACardClick(object sender)
+    { 
+        
+    }
     public override void RunGame()
     {
         Console.WriteLine("Running exploding kittens");
