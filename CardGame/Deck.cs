@@ -10,6 +10,11 @@ public class Deck
 
     public Deck()
     {
+       Cards = new List<Card>();
+    }
+
+    public void CreateUnoDeck()
+    {
         Cards = new List<Card>
         {
             new UnoCard("Red", "0"),

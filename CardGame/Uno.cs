@@ -37,6 +37,7 @@ public partial class Uno : GameEngine
     public async override void RunGame()
     {
         Console.WriteLine("Running uno");
+        DrawDeck.CreateUnoDeck();
         DrawDeck.Shuffle();
         
         foreach (Player player in Players)
