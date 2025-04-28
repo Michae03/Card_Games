@@ -59,7 +59,47 @@ public class Deck
             new UnoCard("Yellow", "6"),
             new UnoCard("Yellow", "7"),
             new UnoCard("Yellow", "8"),
-            new UnoCard("Yellow", "9")
+            new UnoCard("Yellow", "9"),
+
+            //--- FUNKCYJNE ---
+
+            //--- ODWROCENIE KOLEJKI ---
+
+            new UnoCard("Yellow", "r"),
+            new UnoCard("Green", "r"),
+            new UnoCard("Blue", "r"),
+            new UnoCard("Red", "r"),
+
+            //--- WYCISZENIE GRACZA ---
+
+            new UnoCard("Yellow", "s"),
+            new UnoCard("Green", "s"),
+            new UnoCard("Blue", "s"),
+            new UnoCard("Red", "s"),
+
+            //--- DOBRANIE KART ---
+
+            new UnoCard("Yellow", "+2"),
+            new UnoCard("Green", "+2"),
+            new UnoCard("Blue", "+2"),
+            new UnoCard("Red", "+2"),
+
+            new UnoCard("Yellow", "+4"),
+            new UnoCard("Green", "+4"),
+            new UnoCard("Blue", "+4"),
+            new UnoCard("Red", "+4"),
+
+            //--- ZAMIANA TALII ---
+
+            new UnoCard("Yellow", "c"),
+            new UnoCard("Green", "c"),
+            new UnoCard("Blue", "c"),
+            new UnoCard("Red", "c"),
+
+            //--- ZAMIANA KOLORU ---
+
+            new UnoCard("Any", "p"),
+            
         };
     }
 

@@ -12,10 +12,24 @@
             <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
         </StackPanel>
         
-        <StackPanel IsVisible="False" Name="GamePanel" VerticalAlignment="Bottom" Spacing="10">
+        <StackPanel IsVisible="True" Name="GamePanel" VerticalAlignment="Bottom" Spacing="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="130,0,0,0" Spacing="20">
                 <Button Name="LastPlayedCard" Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
                 <Button Name="DrawButton" Click="DrawACard_OnClick">Dobierz Kartę</Button>
+				<Grid Name="ColorChangePanel">
+					<Grid.RowDefinitions> 
+						<RowDefinition></RowDefinition>
+					    <RowDefinition></RowDefinition> 
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<Button Tag="Blue" Background="Blue" Grid.Row="0" Grid.Column="0"></Button>
+					<Button Tag="Green" Background="Green" Grid.Row="0" Grid.Column="1"></Button>
+					<Button Tag="Yellow" Background="Yellow" Grid.Row="1" Grid.Column="0"></Button>
+					<Button Tag="Red" Background="Red" Grid.Row="1" Grid.Column="1"></Button>
+				</Grid>
             </StackPanel>
             <TextBlock FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="750">

@@ -30,6 +30,7 @@ public abstract class GameEngine : INotifyPropertyChanged
     // TU SĄ OBJEKTY Z XML:
     public Button LastPlayedCard {get;  set; }
     public Button DrawButton {get;  set; }
+    public Object ColorChangePanel { get; set; }
     
     protected GameEngine()
     {
@@ -59,7 +60,6 @@ public abstract class GameEngine : INotifyPropertyChanged
     public abstract void HandleCardClick(Object sender);
 
     public abstract void HandleDrawACardClick(Object sender);
-    
     public string CurrentPlayerName => CurrentPlayer.Name;
     
     public event PropertyChangedEventHandler PropertyChanged;

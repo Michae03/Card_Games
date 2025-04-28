@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Tmds.DBus.Protocol;
 
 namespace CardGame;
 
@@ -9,17 +10,94 @@ public partial class Uno : GameEngine
     private string _lastPlayedColor;
     private string _lastPlayedValue;
     
+    // ---------- FUNKCJE KART SPECJALNYCH ----------
+    private void ReversePlayersOrder()
+    {
+        Console.WriteLine("Kolejność graczy została odwrócona!");
+        
+    }
+
+    private void SkipNextPlayer()
+    {
+     
+        Console.WriteLine("Następny gracz zostaje pominięty!");
+        
+    }
+
+    private void ForceNextPlayerToDraw(int cards)
+    {
+        Console.WriteLine($"Dobiera {cards} kart!");
+    }
+
+    private void ChangeToAnyColor(string color) 
+    {
+       
+    }
+    // ---------- SWITCH DO FUNKCJI KART SPECJALNYCH ----------
+
+    private void HandleSpecialCard(UnoCard card)
+    {
+        switch (card.Value) 
+        {
+            case "r":
+                
+                break;
+
+            case "s":
+                
+                break;
+
+            case "+2":
+
+                break;
+
+            case "+4":
+
+                break;
+
+            case "c":
+
+                break;
+
+            case "p":
+
+                break;
+
+
+
+        }
+    }
+
+    public void HandleColorButton_click(string Tag) 
+    {
+        if (Tag == "Blue") 
+        {
+            DrawButton.Content = Tag;
+            
+        }
+    }
     public override void HandleCardClick(object sender)
     {
         if (sender is Button button && button.DataContext is UnoCard clickedCard)
         {
-            if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null)
+            if (clickedCard.Color != "Any")
             {
-                CurrentPlayer.Discard(clickedCard, DiscardDeck);
-                _lastPlayedColor = clickedCard.Color; 
-                _lastPlayedValue = clickedCard.Value;
-                LastPlayedCard.Content = clickedCard.DisplayName;
-                EndTurn();
+                if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null)
+                {
+                    CurrentPlayer.Discard(clickedCard, DiscardDeck);
+                    _lastPlayedColor = clickedCard.Color;
+                    _lastPlayedValue = clickedCard.Value;
+                    LastPlayedCard.Content = clickedCard.DisplayName;
+
+                    HandleSpecialCard(clickedCard);
+
+                    EndTurn();
+                }
+            }
+            else { 
+            
+            
+            
             }
         }
     }
