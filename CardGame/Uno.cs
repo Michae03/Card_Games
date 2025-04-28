@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Media;
 using Tmds.DBus.Protocol;
 
 namespace CardGame;
@@ -73,6 +74,7 @@ public partial class Uno : GameEngine
     {
         _lastPlayedColor = Tag;
         LastPlayedCard.Content = Tag;
+        LastPlayedCardUpdate();
     }
     public override void HandleCardClick(object sender)
     {
@@ -84,7 +86,7 @@ public partial class Uno : GameEngine
                     CurrentPlayer.Discard(clickedCard, DiscardDeck);
                     _lastPlayedColor = clickedCard.Color;
                     _lastPlayedValue = clickedCard.Value;
-                    LastPlayedCard.Content = clickedCard.DisplayName;
+                    LastPlayedCardUpdate();
 
                     HandleSpecialCard(clickedCard);
 
@@ -94,6 +96,34 @@ public partial class Uno : GameEngine
         }
     }
 
+    public void LastPlayedCardUpdate()
+    {
+        var brush = new SolidColorBrush();
+        switch (_lastPlayedColor)
+        {
+            case ("Blue"):
+                brush = new SolidColorBrush(Colors.Blue);
+                break;
+            case ("Red"):
+                brush = new SolidColorBrush(Colors.Red);
+                break;
+            case ("Yellow"):
+                brush = new SolidColorBrush(Colors.Yellow);
+                break;
+            case ("Green"):
+                brush = new SolidColorBrush(Colors.Green);
+                break;
+            case ("Any"):
+                brush = new SolidColorBrush(Colors.White);
+                break;
+            default:
+                brush = new SolidColorBrush(Colors.Gray);
+                break;
+        }
+        LastPlayedCard.Background = brush;
+        LastPlayedCard.Content = _lastPlayedValue;
+    }
+    
     public override void HandleDrawACardClick(object sender)
     { 
         CurrentPlayer.Draw(DrawDeck);
@@ -104,7 +134,8 @@ public partial class Uno : GameEngine
     public async override void RunGame()
     {
         Console.WriteLine("Running uno");
-        DrawDeck.CreateUnoDeck();
+        //DrawDeck.CreateUnoDeck();
+        DrawDeck.create_test_developer_deck();
         DrawDeck.Shuffle();
         foreach (Player player in Players)
         {
@@ -146,6 +177,30 @@ public class UnoCard : Card
     {
         Color = color;
         Value = value;
+        var brush = new SolidColorBrush();
+        switch (color)
+        {
+            case ("Blue"):
+                brush = new SolidColorBrush(Colors.Blue);
+                break;
+            case ("Red"):
+                brush = new SolidColorBrush(Colors.Red);
+                break;
+            case ("Yellow"):
+                brush = new SolidColorBrush(Colors.Yellow);
+                break;
+            case ("Green"):
+                brush = new SolidColorBrush(Colors.Green);
+                break;
+            case ("Any"):
+                brush = new SolidColorBrush(Colors.White);
+                break;
+            default:
+                brush = new SolidColorBrush(Colors.Gray);
+                break;
+        }
+
+        UIColor = brush;
     }
 
     public override void Play()
@@ -154,5 +209,5 @@ public class UnoCard : Card
     }
     
 
-    public override string DisplayName => $"{Color} {Value}";
+    public override string DisplayName => $"{Value}";
 }

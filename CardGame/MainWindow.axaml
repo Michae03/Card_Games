@@ -7,47 +7,61 @@
         x:Class="CardGame.MainWindow"
         Title="CardGame"
         x:DataType="cardGame:GameEngine">
-    <StackPanel VerticalAlignment="Bottom" >
-        <StackPanel Name="MenuPanel">
+
+    <Grid> 
+        <!-- Menu Panel -->
+        <StackPanel Name="MenuPanel"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    IsVisible="True"> 
             <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
         </StackPanel>
-        
-        <StackPanel IsVisible="True" Name="GamePanel" VerticalAlignment="Bottom" Spacing="10">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="130,0,0,0" Spacing="20">
-                <Button Name="LastPlayedCard" Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
+
+        <!-- Game Panel -->
+        <StackPanel Name="GamePanel"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center"
+                    IsVisible="True"  
+                    Spacing="10">
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" Spacing="20">
+                <Grid Name="ColorChangePanel" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                    <Grid.RowDefinitions> 
+                        <RowDefinition/>
+                        <RowDefinition/> 
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Tag="Blue" Background="Blue" Grid.Row="0" Grid.Column="0" Click="ColorChange_OnClick" Width="40" Height="40"/>
+                    <Button Tag="Green" Background="Green" Grid.Row="0" Grid.Column="1" Click="ColorChange_OnClick" Width="40" Height="40"/>
+                    <Button Tag="Yellow" Background="Yellow" Grid.Row="1" Grid.Column="0" Click="ColorChange_OnClick" Width="40" Height="40"/>
+                    <Button Tag="Red" Background="Red" Grid.Row="1" Grid.Column="1" Click="ColorChange_OnClick" Width="40" Height="40"/>
+                </Grid>
+                <Button Name="LastPlayedCard" FontSize="30" Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
                 <Button Name="DrawButton" Click="DrawACard_OnClick">Dobierz Kartę</Button>
-				<Grid Name="ColorChangePanel" IsVisible="False">
-					<Grid.RowDefinitions> 
-						<RowDefinition></RowDefinition>
-					    <RowDefinition></RowDefinition> 
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition></ColumnDefinition>
-						<ColumnDefinition></ColumnDefinition>
-					</Grid.ColumnDefinitions>
-					<Button Tag="Blue" Background="Blue" Grid.Row="0" Grid.Column="0" Click="ColorChange_OnClick"></Button>
-					<Button Tag="Green" Background="Green" Grid.Row="0" Grid.Column="1" Click="ColorChange_OnClick"></Button>
-					<Button Tag="Yellow" Background="Yellow" Grid.Row="1" Grid.Column="0" Click="ColorChange_OnClick"></Button>
-					<Button Tag="Red" Background="Red" Grid.Row="1" Grid.Column="1" Click="ColorChange_OnClick"></Button>
-				</Grid>
             </StackPanel>
-            <TextBlock FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"></TextBlock>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="750">
+
+            <TextBlock Name="PlayerName" FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"/>
+
+            <ScrollViewer Name="Hand" HorizontalScrollBarVisibility="Auto" MaxWidth="750">
                 <ItemsControl ItemsSource="{Binding CurrentPlayer.Hand}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                            <StackPanel Spacing="10" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Button Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{Binding DisplayName}" Click="Card_OnClick" />
+                            <Button Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{Binding UIColor }" Content="{Binding DisplayName}" FontSize="30" Click="Card_OnClick"/>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+
         </StackPanel>
-    </StackPanel>
-    
-   
+
+    </Grid>
+
 </Window>

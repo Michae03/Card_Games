@@ -11,7 +11,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        
     }
 
     public void InitializeGameObjects() 
@@ -48,6 +47,7 @@ public partial class MainWindow : Window
         GameEngine.RunGame();
         DataContext = GameEngine;
         GamePanel.IsVisible = true;
+        ColorChangePanel.IsVisible = false;
         MenuPanel.IsVisible = false;
         
     }
