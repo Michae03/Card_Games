@@ -15,7 +15,7 @@
         <StackPanel IsVisible="False" Name="GamePanel" VerticalAlignment="Bottom" Spacing="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="130,0,0,0" Spacing="20">
                 <Button Name="LastPlayedCard" Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
-                <Button Click="DrawACard_OnClick">Dobierz Kartę</Button>
+                <Button Name="DrawButton" Click="DrawACard_OnClick">Dobierz Kartę</Button>
             </StackPanel>
             <TextBlock FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="750">

@@ -27,10 +27,7 @@ public partial class Uno : GameEngine
     public override void HandleDrawACardClick(object sender)
     { 
         CurrentPlayer.Draw(DrawDeck);
-        if (sender is Button button)
-        {
-            button.Content = $"Dobierz kartę ({DrawDeck.Cards.Count} kart)";
-        }
+        DrawButton.Content = $"Dobierz kartę ({DrawDeck.Cards.Count} kart)";
         EndTurn();
     }
 
@@ -39,11 +36,12 @@ public partial class Uno : GameEngine
         Console.WriteLine("Running uno");
         DrawDeck.CreateUnoDeck();
         DrawDeck.Shuffle();
-        
         foreach (Player player in Players)
         {
             player.Draw(DrawDeck, 5);
         }
+        DrawButton.Content = $"Dobierz kartę ({DrawDeck.Cards.Count} kart)";
+        
         bool gameOver = false;
         while (!gameOver)
         {

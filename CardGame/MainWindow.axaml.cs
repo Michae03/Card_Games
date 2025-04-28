@@ -28,7 +28,7 @@ public partial class MainWindow : Window
         GameEngine = new Uno();
         GameEngine.Players.Add(new Player("Gracz 1"));
         GameEngine.Players.Add(new Player("Gracz 2"));
-       
+        GameEngine.DrawButton = DrawButton;
         GameEngine.LastPlayedCard = LastPlayedCard;
         GameEngine.RunGame();
         DataContext = GameEngine;

@@ -26,9 +26,11 @@ public abstract class GameEngine : INotifyPropertyChanged
     protected Deck DrawDeck = new Deck(); 
     protected Deck DiscardDeck = new Deck();
     protected TaskCompletionSource<bool>? WaitForPlayerAction;
+    
+    // TU SĄ OBJEKTY Z XML:
     public Button LastPlayedCard {get;  set; }
-
-
+    public Button DrawButton {get;  set; }
+    
     protected GameEngine()
     {
         Players = new List<Player>();
