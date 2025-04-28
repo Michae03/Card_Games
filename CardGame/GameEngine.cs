@@ -30,7 +30,7 @@ public abstract class GameEngine : INotifyPropertyChanged
     // TU SĄ OBJEKTY Z XML:
     public Button LastPlayedCard {get;  set; }
     public Button DrawButton {get;  set; }
-    public Object ColorChangePanel { get; set; }
+    public Grid ColorChangePanel { get; set; }
     
     protected GameEngine()
     {

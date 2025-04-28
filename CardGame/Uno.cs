@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Tmds.DBus.Protocol;
@@ -29,9 +30,9 @@ public partial class Uno : GameEngine
         Console.WriteLine($"Dobiera {cards} kart!");
     }
 
-    private void ChangeToAnyColor(string color) 
+    private void ChangeToAnyColor() 
     {
-       
+       ColorChangePanel.IsVisible = true;
     }
     // ---------- SWITCH DO FUNKCJI KART SPECJALNYCH ----------
 
@@ -60,7 +61,7 @@ public partial class Uno : GameEngine
                 break;
 
             case "p":
-
+                ChangeToAnyColor();
                 break;
 
 
@@ -70,19 +71,15 @@ public partial class Uno : GameEngine
 
     public void HandleColorButton_click(string Tag) 
     {
-        if (Tag == "Blue") 
-        {
-            DrawButton.Content = Tag;
-            
-        }
+        _lastPlayedColor = Tag;
+        LastPlayedCard.Content = Tag;
     }
     public override void HandleCardClick(object sender)
     {
         if (sender is Button button && button.DataContext is UnoCard clickedCard)
         {
-            if (clickedCard.Color != "Any")
-            {
-                if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null)
+            
+             if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null || clickedCard.Color == "Any")
                 {
                     CurrentPlayer.Discard(clickedCard, DiscardDeck);
                     _lastPlayedColor = clickedCard.Color;
@@ -93,12 +90,7 @@ public partial class Uno : GameEngine
 
                     EndTurn();
                 }
-            }
-            else { 
             
-            
-            
-            }
         }
     }
 
