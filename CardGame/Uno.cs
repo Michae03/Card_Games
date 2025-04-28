@@ -15,6 +15,20 @@ public partial class Uno : GameEngine
     private int direction = 1;
     private int currentIndex = 0;
 
+    private bool _waitingForColorChoice = false;
+
+    //----------- DO DOBIERANIA KART -------------
+
+    private int _pendingDrawAmount = 0;
+    private bool _DrawAmountDefence = false;
+
+    private void ForceNextPlayerToDraw(int cards)
+    {
+        _pendingDrawAmount += cards;
+        _DrawAmountDefence = true;
+        Console.WriteLine($"Następny gracz musi dobrać {_pendingDrawAmount} kart lub się obronić!");
+    }
+
     // ---------- FUNKCJE KART SPECJALNYCH ----------
     private void ReversePlayersOrder()
     {
@@ -28,20 +42,18 @@ public partial class Uno : GameEngine
         Console.WriteLine("Następny gracz zostaje pominięty!");
         
     }
-
-    private void ForceNextPlayerToDraw(int cards)
-    {
-        Console.WriteLine($"Dobiera {cards} kart!");
-    }
-
     private void ChangeToAnyColor() 
     {
        ColorChangePanel.IsVisible = true;
+        _waitingForColorChoice = true;
     }
     // ---------- SWITCH DO FUNKCJI KART SPECJALNYCH ----------
 
     private void HandleSpecialCard(UnoCard card)
     {
+
+        int nextIndex = -1;
+        
         switch (card.Value) 
         {
             case "r":
@@ -53,11 +65,11 @@ public partial class Uno : GameEngine
                 break;
 
             case "+2":
-
+                ForceNextPlayerToDraw(2);
                 break;
 
             case "+4":
-
+                ForceNextPlayerToDraw(4);
                 break;
 
             case "c":
@@ -78,12 +90,43 @@ public partial class Uno : GameEngine
     {
         _lastPlayedColor = Tag;
         LastPlayedCard.Content = Tag;
+        ColorChangePanel.IsVisible = false;
+        _waitingForColorChoice = false;
+        EndTurn();
     }
     public override void HandleCardClick(object sender)
     {
+        if (_waitingForColorChoice)
+            return;
+
         if (sender is Button button && button.DataContext is UnoCard clickedCard)
         {
-            
+            if (_DrawAmountDefence) 
+            {
+                if (clickedCard.Value == "+2" || clickedCard.Value == "+4")
+                {
+                    CurrentPlayer.Discard(clickedCard, DiscardDeck);
+                    _pendingDrawAmount += (_pendingDrawAmount == 2) ? 2 : 4;
+                    _lastPlayedColor = clickedCard.Color;
+                    _lastPlayedValue = clickedCard.Value;
+                    LastPlayedCard.Content = clickedCard.DisplayName;
+
+                    HandleSpecialCard(clickedCard);
+
+                    EndTurn();
+                    return;
+                }
+                else 
+                {
+                    CurrentPlayer.Draw(DrawDeck, _pendingDrawAmount);
+                    _pendingDrawAmount = 0;
+                    _DrawAmountDefence = false;
+                    DrawButton.Content = $"Dobierz karte {DrawDeck.Cards.Count} kart";
+                    EndTurn();
+                    return;
+                }
+            }
+
              if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null || clickedCard.Color == "Any")
                 {
                     CurrentPlayer.Discard(clickedCard, DiscardDeck);
@@ -100,8 +143,20 @@ public partial class Uno : GameEngine
     }
 
     public override void HandleDrawACardClick(object sender)
-    { 
-        CurrentPlayer.Draw(DrawDeck);
+    {
+        if (_waitingForColorChoice)
+            return;
+        if (_DrawAmountDefence) 
+        {
+            CurrentPlayer.Draw(DrawDeck, _pendingDrawAmount);
+            _pendingDrawAmount = 0;
+            _DrawAmountDefence = false;
+        }
+        else
+        {
+            CurrentPlayer.Draw(DrawDeck);
+        }
+            
         DrawButton.Content = $"Dobierz kartę ({DrawDeck.Cards.Count} kart)";
         EndTurn();
     }
