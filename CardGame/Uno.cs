@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using HarfBuzzSharp;
 using Tmds.DBus.Protocol;
 
 namespace CardGame;
@@ -10,12 +11,15 @@ public partial class Uno : GameEngine
 {
     private string _lastPlayedColor;
     private string _lastPlayedValue;
-    
+
+    private int direction = 1;
+    private int currentIndex = 0;
+
     // ---------- FUNKCJE KART SPECJALNYCH ----------
     private void ReversePlayersOrder()
     {
         Console.WriteLine("Kolejność graczy została odwrócona!");
-        
+        direction *= -1;
     }
 
     private void SkipNextPlayer()
@@ -41,7 +45,7 @@ public partial class Uno : GameEngine
         switch (card.Value) 
         {
             case "r":
-                
+                ReversePlayersOrder();
                 break;
 
             case "s":
@@ -62,6 +66,7 @@ public partial class Uno : GameEngine
 
             case "p":
                 ChangeToAnyColor();
+
                 break;
 
 
@@ -113,14 +118,17 @@ public partial class Uno : GameEngine
         DrawButton.Content = $"Dobierz kartę ({DrawDeck.Cards.Count} kart)";
         
         bool gameOver = false;
+        
         while (!gameOver)
         {
-            foreach (Player player in Players)
+            while (currentIndex >= 0 && currentIndex < Players.Count)
             {
+                CurrentPlayer = Players[currentIndex];
                 Console.WriteLine($"Talia: {DrawDeck.Cards.Count}");
                 Console.WriteLine($"Odrzucone: {DiscardDeck.Cards.Count}");
-                CurrentPlayer = player;
+
                 await PlayerTurn();
+
                 if (CurrentPlayer.Hand.Count == 0)
                 {
                     EndGame(CurrentPlayer);
@@ -133,8 +141,20 @@ public partial class Uno : GameEngine
                     DrawDeck = DiscardDeck;
                     DrawDeck.Shuffle();
                 }
-            }   
+
+                currentIndex += direction;
+            }
+
+            // Jak wyjdzie poza zakres, wracamy
+            if (!gameOver)
+            {
+                if (currentIndex < 0)
+                    currentIndex = Players.Count - 1;
+                else if (currentIndex >= Players.Count)
+                    currentIndex = 0;
+            }
         }
+
     }
 }
 public class UnoCard : Card

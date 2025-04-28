@@ -44,7 +44,8 @@ public partial class MainWindow : Window
         GameEngine = new Uno();
         InitializeGameObjects();
         GameEngine.Players.Add(new Player("Gracz 1"));
-        GameEngine.Players.Add(new Player("Gracz 2"));       
+        GameEngine.Players.Add(new Player("Gracz 2"));
+        GameEngine.Players.Add(new Player("Gracz 3"));
         GameEngine.RunGame();
         DataContext = GameEngine;
         GamePanel.IsVisible = true;
