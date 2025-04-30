@@ -16,11 +16,15 @@ public partial class Uno : GameEngine
     private int currentIndex = 0;
 
     private bool _waitingForColorChoice = false;
+    private Player _playerToSkip = null;
+    
 
     //----------- DO DOBIERANIA KART -------------
 
     private int _pendingDrawAmount = 0;
     private bool _DrawAmountDefence = false;
+    private int _turnsToSkip = 0;
+    private bool _SkipTurnDefence = false;
 
     private void ForceNextPlayerToDraw(int cards)
     {
@@ -36,11 +40,13 @@ public partial class Uno : GameEngine
         direction *= -1;
     }
 
-    private void SkipNextPlayer()
+    private void SkipNextPlayer(int turns)
     {
-     
-        Console.WriteLine("Następny gracz zostaje pominięty!");
-        
+        int nextPlayerIndex = (currentIndex + direction + Players.Count) % Players.Count;
+        _playerToSkip = Players[nextPlayerIndex];
+        _turnsToSkip += turns;
+        _SkipTurnDefence = true;
+
     }
     private void ChangeToAnyColor() 
     {
@@ -61,7 +67,7 @@ public partial class Uno : GameEngine
                 break;
 
             case "s":
-                
+                SkipNextPlayer(1);
                 break;
 
             case "+2":
@@ -126,6 +132,26 @@ public partial class Uno : GameEngine
                     return;
                 }
             }
+            if (_SkipTurnDefence) 
+            {
+                if (clickedCard.Value == "s") 
+                {
+                    CurrentPlayer.Discard(clickedCard, DiscardDeck);
+                    _lastPlayedColor = clickedCard.Color;
+                    _lastPlayedValue = clickedCard.Value;
+                    LastPlayedCard.Content = clickedCard.DisplayName;
+                    HandleSpecialCard(clickedCard);
+                    EndTurn();
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Nie obroniłeś się przed pominięciem tury.");
+                    _SkipTurnDefence = false;
+                    EndTurn();
+                    return;
+                }
+            }
 
              if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null || clickedCard.Color == "Any")
                 {
@@ -182,6 +208,23 @@ public partial class Uno : GameEngine
                 Console.WriteLine($"Talia: {DrawDeck.Cards.Count}");
                 Console.WriteLine($"Odrzucone: {DiscardDeck.Cards.Count}");
 
+                if (_turnsToSkip > 0 && CurrentPlayer == _playerToSkip)
+                {
+                    if (!_SkipTurnDefence)
+                    {
+                        Console.WriteLine($"{CurrentPlayer.Name} zostaje pominięty (nie obronił się)!");
+                        _turnsToSkip--;
+                        _playerToSkip = null;
+                        currentIndex += direction;
+                        continue;
+                    }
+                    else
+                    {
+                        
+                        Console.WriteLine($"{CurrentPlayer.Name} ma szansę się obronić przed pominięciem tury.");
+                    }
+                }
+
                 await PlayerTurn();
 
                 if (CurrentPlayer.Hand.Count == 0)
@@ -200,7 +243,6 @@ public partial class Uno : GameEngine
                 currentIndex += direction;
             }
 
-            // Jak wyjdzie poza zakres, wracamy
             if (!gameOver)
             {
                 if (currentIndex < 0)
