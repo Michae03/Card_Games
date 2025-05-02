@@ -7,15 +7,29 @@
         x:Class="CardGame.MainWindow"
         Title="CardGame"
         x:DataType="cardGame:GameEngine">
+
+	
+	
     <StackPanel VerticalAlignment="Bottom" >
         <StackPanel Name="MenuPanel">
+
+
+
+			<TextBox Name="LoginBox" Watermark="Login" Width="150"/>
+			<TextBox Name="PasswordBox" Watermark="Haslo" Width="150"/>
+			<Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,40"> Zaloguj się </Button>
+
             <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
+			<Button Click="PlayMember_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Członka</Button>
         </StackPanel>
         
         <StackPanel IsVisible="False" Name="GamePanel" VerticalAlignment="Bottom" Spacing="10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="130,0,0,0" Spacing="20">
                 <Button Name="LastPlayedCard" Height="150" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" />
                 <Button Name="DrawButton" Click="DrawACard_OnClick">Dobierz Kartę</Button>
+				<Button Name="PlusButton" Click="Plus_OnClick"> + </Button>
+				<Button Name="MinusButton" Click="Minus_OnClick"> - </Button>
+				<Button Name="ConfirmButton" Click="Confirm_OnClick"> Zatwierdź </Button>
             </StackPanel>
             <TextBlock FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"></TextBlock>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" MaxWidth="750">
