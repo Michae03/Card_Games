@@ -19,7 +19,7 @@
 			<TextBox Name="PasswordBox" Watermark="Haslo" Width="150"/>
 			<Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,40"> Zaloguj się </Button>
 
-            <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
+			<Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
 			<Button Click="PlayMember_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Członka</Button>
         </StackPanel>
         
