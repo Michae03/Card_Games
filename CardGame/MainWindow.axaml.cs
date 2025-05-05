@@ -36,4 +36,18 @@ public partial class MainWindow : Window
         MenuPanel.IsVisible = false;
         
     }
+
+    private void PlayExplodingKittens_OnClick(object? sender, RoutedEventArgs e)
+    {
+        GameEngine = new ExplodingKittens();
+        GameEngine.Players.Add(new Player("Gracz 1"));
+        GameEngine.Players.Add(new Player("Gracz 2"));
+        GameEngine.DrawButton = DrawButton;
+        GameEngine.LastPlayedCard = LastPlayedCard;
+        GameEngine.RunGame();
+        DataContext = GameEngine;
+        GamePanel.IsVisible = true;
+        MenuPanel.IsVisible = false;
+
+    }
 }

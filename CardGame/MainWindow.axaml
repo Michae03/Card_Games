@@ -9,7 +9,8 @@
         x:DataType="cardGame:GameEngine">
     <StackPanel VerticalAlignment="Bottom" >
         <StackPanel Name="MenuPanel">
-            <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
+			<Button Click="PlayExplodingKittens_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Eksplodujace Kotki</Button>
+			<Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
         </StackPanel>
         
         <StackPanel IsVisible="False" Name="GamePanel" VerticalAlignment="Bottom" Spacing="10">

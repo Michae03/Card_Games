@@ -63,6 +63,64 @@ public class Deck
         };
     }
 
+    public void CreateExplodingKittensDeck()
+    {
+        Cards = new List<Card>
+        {
+            new ExplodingKittenCard("Kitten"),
+            new ExplodingKittenCard("Kitten"),
+            new ExplodingKittenCard("Kitten"),
+            new ExplodingKittenCard("Kitten"),
+            new ExplodingKittenCard("Kitten"),
+            new ExplodingKittenCard("Kitten"),
+
+            new ExplodingKittenCard("Defuse"),
+            new ExplodingKittenCard("Defuse"),
+            new ExplodingKittenCard("Defuse"),
+            new ExplodingKittenCard("Defuse"),
+            new ExplodingKittenCard("Defuse"),
+            new ExplodingKittenCard("Defuse"),
+
+            // ---------- ZOBACZ 3 KARTY Z TALII ----------
+
+            new ExplodingKittenCard("See Future"),
+            new ExplodingKittenCard("See Future"),
+            new ExplodingKittenCard("See Future"),
+            new ExplodingKittenCard("See Future"),
+            new ExplodingKittenCard("See Future"),
+
+            // ---------- DOBIERASZ 0 NASTEPNY GRACZ DOBIERA 2 ----------
+
+            new ExplodingKittenCard("Attack"),
+            new ExplodingKittenCard("Attack"),
+            new ExplodingKittenCard("Attack"),
+            new ExplodingKittenCard("Attack"),
+
+            // ---------- POMIN TURE ----------
+
+            new ExplodingKittenCard("Skip"),
+            new ExplodingKittenCard("Skip"),
+            new ExplodingKittenCard("Skip"),
+            new ExplodingKittenCard("Skip"),
+
+            // ---------- PRZETASUJ TALIE ----------
+
+            new ExplodingKittenCard("Shuffle"),
+            new ExplodingKittenCard("Shuffle"),
+            new ExplodingKittenCard("Shuffle"),
+            new ExplodingKittenCard("Shuffle"),
+
+            // ---------- WYBIERASZ JEDNA KARTE PRZECIWNIKA ----------
+
+            new ExplodingKittenCard("Favor"),
+            new ExplodingKittenCard("Favor"),
+            new ExplodingKittenCard("Favor"),
+            new ExplodingKittenCard("Favor"),
+
+
+        };
+    }
+
     public void Shuffle()
     {
         Random rng = new Random();
