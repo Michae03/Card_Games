@@ -89,13 +89,6 @@ public class Deck
             new UnoCard("Blue", "+4"),
             new UnoCard("Red", "+4"),
 
-            //--- ZAMIANA TALII ---
-
-            new UnoCard("Yellow", "c"),
-            new UnoCard("Green", "c"),
-            new UnoCard("Blue", "c"),
-            new UnoCard("Red", "c"),
-
             //--- ZAMIANA KOLORU ---
 
             new UnoCard("Any", "p"),

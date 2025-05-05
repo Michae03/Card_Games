@@ -78,10 +78,6 @@ public partial class Uno : GameEngine
                 ForceNextPlayerToDraw(4);
                 break;
 
-            case "c":
-
-                break;
-
             case "p":
                 ChangeToAnyColor();
 
