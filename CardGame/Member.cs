@@ -184,7 +184,7 @@ public partial class Member : GameEngine
         GameData.dateTime = DateTime.Now;
         GameData.gameNumber = 1;
         GameData.category = "member";
-        GameData.winner = CurrentPlayer.user;
+        //GameData.winner = CurrentPlayer.user;
 
     }
 }
