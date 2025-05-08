@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Media;
 using HarfBuzzSharp;
 using Tmds.DBus.Protocol;
 
@@ -46,7 +47,6 @@ public partial class Uno : GameEngine
         _playerToSkip = Players[nextPlayerIndex];
         _turnsToSkip += turns;
         _SkipTurnDefence = true;
-
     }
     private void ChangeToAnyColor() 
     {
@@ -94,6 +94,7 @@ public partial class Uno : GameEngine
         LastPlayedCard.Content = Tag;
         ColorChangePanel.IsVisible = false;
         _waitingForColorChoice = false;
+        LastPlayedCardUpdate();
         EndTurn();
     }
     public override void HandleCardClick(object sender)
@@ -154,7 +155,7 @@ public partial class Uno : GameEngine
                     CurrentPlayer.Discard(clickedCard, DiscardDeck);
                     _lastPlayedColor = clickedCard.Color;
                     _lastPlayedValue = clickedCard.Value;
-                    LastPlayedCard.Content = clickedCard.DisplayName;
+                    LastPlayedCardUpdate();
 
                     HandleSpecialCard(clickedCard);
 
@@ -164,6 +165,34 @@ public partial class Uno : GameEngine
         }
     }
 
+    public void LastPlayedCardUpdate()
+    {
+        var brush = new SolidColorBrush();
+        switch (_lastPlayedColor)
+        {
+            case ("Blue"):
+                brush = new SolidColorBrush(Colors.Blue);
+                break;
+            case ("Red"):
+                brush = new SolidColorBrush(Colors.Red);
+                break;
+            case ("Yellow"):
+                brush = new SolidColorBrush(Colors.Yellow);
+                break;
+            case ("Green"):
+                brush = new SolidColorBrush(Colors.Green);
+                break;
+            case ("Any"):
+                brush = new SolidColorBrush(Colors.White);
+                break;
+            default:
+                brush = new SolidColorBrush(Colors.Gray);
+                break;
+        }
+        LastPlayedCard.Background = brush;
+        LastPlayedCard.Content = _lastPlayedValue;
+    }
+    
     public override void HandleDrawACardClick(object sender)
     {
         if (_waitingForColorChoice)
@@ -267,5 +296,5 @@ public class UnoCard : Card
     }
     
 
-    public override string DisplayName => $"{Color} {Value}";
+    public override string DisplayName => $"{Value}";
 }

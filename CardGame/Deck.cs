@@ -90,12 +90,44 @@ public class Deck
             new UnoCard("Red", "+4"),
 
             //--- ZAMIANA KOLORU ---
-
+        
             new UnoCard("Any", "p"),
             
         };
     }
 
+    public void create_test_developer_deck()
+    {
+        Cards = new List<Card>
+        {
+            new UnoCard("Any", "p"),
+            new UnoCard("Any", "p"),
+            new UnoCard("Any", "p"),
+            new UnoCard("Any", "p"),
+            new UnoCard("Any", "p"),
+            new UnoCard("Any", "p"),
+            
+            new UnoCard("Blue", "0"),
+            new UnoCard("Blue", "1"),
+            new UnoCard("Blue", "2"),
+            new UnoCard("Blue", "3"),
+            new UnoCard("Blue", "4"),
+            new UnoCard("Blue", "5"),
+            new UnoCard("Blue", "6"),
+            new UnoCard("Blue", "7"),
+            new UnoCard("Blue", "8"),
+            new UnoCard("Blue", "9"),
+
+            new UnoCard("Yellow", "0"),
+            new UnoCard("Yellow", "1"),
+            new UnoCard("Yellow", "2"),
+            new UnoCard("Yellow", "3"),
+            new UnoCard("Yellow", "4"),
+            new UnoCard("Yellow", "5"),
+            new UnoCard("Yellow", "6"),
+        };
+    }
+    
     public void Shuffle()
     {
         Random rng = new Random();
