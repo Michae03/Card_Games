@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -8,7 +10,7 @@ public partial class Player
 {
     public ObservableCollection<Card> Hand { get; set; }
     public string Name { get; set; }
-
+    public User User { get; set; }
     public Player()
     {
         Hand = new ObservableCollection<Card>();
@@ -41,7 +43,7 @@ public partial class Player
                 deck.Cards.RemoveAt(deck.Cards.Count - 1);
                 Hand.Add(newCard);
             }
-           
+
         }
     }
 
@@ -55,10 +57,22 @@ public partial class Player
         discardDeck.Cards.Add(discardedCard);
     }
 
-    public void Insert(Card cardToInsert ,Deck deck, int positionInDeck)
+    public void Insert(Card cardToInsert, Deck deck, int positionInDeck)
     {
         Hand.Remove(cardToInsert);
         deck.Cards.Insert(positionInDeck, cardToInsert);
     }
-    
+
+    public void Order()
+    {
+        Deck deck = new Deck();
+        deck.Cards = Hand.ToList();
+        deck.OrderStandardDeck();
+        Hand.Clear();
+        foreach (Card card in deck.Cards)
+        {
+            Hand.Add(card);
+        }
+    }
+
 }
