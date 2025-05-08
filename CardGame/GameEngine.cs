@@ -17,12 +17,14 @@ public abstract class GameEngine : INotifyPropertyChanged
             if (_currentPlayer != value)
             {
                 _currentPlayer = value;
-                OnPropertyChanged(nameof(CurrentPlayer)); 
-                OnPropertyChanged(nameof(CurrentPlayerName)); 
+                OnPropertyChanged(nameof(CurrentPlayer));
+                OnPropertyChanged(nameof(CurrentPlayerName));
             }
         }
     }
-    public List<Player> Players{ get; set; }
+
+
+    public List<Player> Players{ get; set;}
     protected Deck DrawDeck = new Deck(); 
     protected Deck DiscardDeck = new Deck();
     protected TaskCompletionSource<bool>? WaitForPlayerAction;
@@ -60,6 +62,14 @@ public abstract class GameEngine : INotifyPropertyChanged
     public abstract void HandleCardClick(Object sender);
 
     public abstract void HandleDrawACardClick(Object sender);
+
+    public abstract void HandleCardConfirm(Object sender);
+
+    public abstract void HandlePlus(Object sender);
+
+    public abstract void HandleMinus(Object sender);
+   
+
     public string CurrentPlayerName => CurrentPlayer.Name;
     
     public event PropertyChangedEventHandler PropertyChanged;

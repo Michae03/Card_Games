@@ -212,6 +212,14 @@ public partial class Uno : GameEngine
         EndTurn();
     }
 
+
+    //to jest tylko po to by działała część JZ
+    public override void HandleCardConfirm(object sender) { }
+    public override void HandlePlus(Object sender) { }
+    public override void HandleMinus(Object sender) { }
+    // koniec części jagody
+
+
     public async override void RunGame()
     {
         Console.WriteLine("Running uno");
@@ -283,13 +291,12 @@ public class UnoCard : Card
 {
     public string Color { get; set; }
     public string Value { get; set; }
-
+   
     public UnoCard(string color, string value)
     {
         Color = color;
         Value = value;
     }
-
     public override void Play()
     {
         Console.WriteLine(DisplayName);
