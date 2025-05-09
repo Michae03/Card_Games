@@ -41,7 +41,7 @@ public partial class MainWindow : Window
     {
         if (sender is Button button && GameEngine is Makao makao)
         {
-            makao.MakaoHandleColorButton_click(button.Tag.ToString());
+            makao.MakaoHandleValueButton_click(button.Tag.ToString());
         }
     }
     private void PlayUno_OnClick(object? sender, RoutedEventArgs e)

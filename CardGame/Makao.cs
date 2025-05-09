@@ -30,7 +30,9 @@ public partial class Makao : GameEngine
     private int _turnsToSkip = 0;
     private bool _SkipTurnDefence = false;
 
-    private bool _Demanding = false;
+    private bool _DemandingColor = false;
+    private bool _DemandingValue = false;
+
     private void ForceNextPlayerToDraw(int cards)
     {
         _pendingDrawAmount += cards;
@@ -83,20 +85,27 @@ public partial class Makao : GameEngine
                 break;
 
             case "As":
-                
+                ValueDemanding();
                 break;
 
             case "Walet":
-                ValueDemanding();
+                ColorDemanding();
                 break;
         }
     }
 
-    private void ValueDemanding() 
+    private void ColorDemanding() 
     {
        MakaoColorPanel.IsVisible = true;
-       _Demanding = true;
+       _DemandingColor = true;
        _playersWhoRespondToDemand.Clear();
+    }
+
+    private void ValueDemanding() 
+    { 
+        MakaoValuePanel.IsVisible = true;
+        _DemandingValue = true;
+        _playersWhoRespondToDemand.Clear();
     }
 
     public void MakaoHandleColorButton_click(string Tag)
@@ -108,14 +117,31 @@ public partial class Makao : GameEngine
         LastPlayedCard.Content = Tag;
         _waitingForColorChoice = false;
         MakaoColorPanel.IsVisible = false;
-        _Demanding = true;
+        _DemandingColor = true;
         EndTurn();
+    }
+
+    public void MakaoHandleValueButton_click(string Tag) 
+    {
+        Debug.WriteLine("Value");
+        Debug.WriteLine(Tag);
+        if (!_waitingForColorChoice || CurrentPlayer != _demandingPlayer)
+            return;
+
+        _lastPlayedColor = "Any";
+        _lastPlayedValue = Tag;
+        LastPlayedCard.Content = Tag;
+        _waitingForColorChoice = false;
+        MakaoValuePanel.IsVisible = false;
+        _DemandingValue = true;
+        EndTurn();
+
     }
     public override void HandleCardClick(object sender)
     {
         if (_waitingForColorChoice)
             return;
-        if (_Demanding)
+        if (_DemandingColor)
         {
             if (sender is Button button && button.DataContext is MakaoCard clickedCard)
             {
@@ -125,17 +151,40 @@ public partial class Makao : GameEngine
                     _lastPlayedValue = clickedCard.Value;
                     LastPlayedCard.Content = clickedCard.DisplayName;
 
-                    _playersWhoRespondToDemand.Add(CurrentPlayer);
-
                     if (_playersWhoRespondToDemand.Count == Players.Count) 
                     { 
-                        _Demanding = false;
+                        _DemandingColor = false;
                         _demandingPlayer = null;
                     }
                 }
             }
         }
-        else 
+        else if (_DemandingValue)
+        {
+            if (sender is Button button && button.DataContext is MakaoCard clickedCard)
+            {
+                
+                if (clickedCard.Value == _lastPlayedValue)
+                {
+                    CurrentPlayer.Discard(clickedCard, DiscardDeck);
+                    _lastPlayedColor = clickedCard.Color;        
+                    LastPlayedCard.Content = clickedCard.DisplayName;
+
+                    
+                    _playersWhoRespondToDemand.Add(CurrentPlayer);
+                    if (_playersWhoRespondToDemand.Count == Players.Count)
+                    {
+                        
+                        _DemandingValue = false;
+                        _demandingPlayer = null;
+                    }
+
+                }
+            }
+            return;
+        }
+
+        else
         {
             if (sender is Button button && button.DataContext is MakaoCard clickedCard)
             {
@@ -217,15 +266,30 @@ public partial class Makao : GameEngine
                     _lastPlayedColor = null;
                     LastPlayedCard.Content = clickedCard.DisplayName;
 
-                    if (!_Demanding) 
+                    if (!_DemandingColor)
                     {
                         MakaoColorPanel.IsVisible = true;
                         _waitingForColorChoice = true;
                         _demandingPlayer = CurrentPlayer;
-                    }                
-                    
-                // ------------ DODAC OBSLUGE ASA ----------------
+                    }
 
+                    // ------------ DODAC OBSLUGE ASA ----------------
+
+                    return;
+                }
+                else if (clickedCard.Value == "As") 
+                {
+                    CurrentPlayer.Discard(clickedCard,DiscardDeck);
+                    _lastPlayedValue = "As";
+                    _lastPlayedColor = null;
+                    LastPlayedCard.Content = clickedCard.DisplayName;
+
+                    if (!_DemandingValue) 
+                    {
+                        MakaoValuePanel.IsVisible = true;
+                        _waitingForColorChoice = true;
+                        _demandingPlayer = CurrentPlayer;
+                    }
                     return;
                 }
                 if (clickedCard.Value == _lastPlayedValue || clickedCard.Color == _lastPlayedColor || _lastPlayedColor is null)
@@ -264,12 +328,26 @@ public partial class Makao : GameEngine
             Debug.WriteLine($"{CurrentPlayer.Name} nie obronił się — pominięcie tury.");
             _SkipTurnDefence = false;
         }
-        if (_Demanding)
+        if (_DemandingColor)
         {
             _playersWhoRespondToDemand.Add(CurrentPlayer);
+
             if (_playersWhoRespondToDemand.Count == Players.Count)
             {
-                _Demanding = false;
+                _DemandingColor = false;
+                _demandingPlayer = null;
+            }
+            EndTurn();
+            return;
+        }
+
+        else if (_DemandingValue)
+        {
+            _playersWhoRespondToDemand.Add(CurrentPlayer);
+
+            if (_playersWhoRespondToDemand.Count == Players.Count)
+            {
+                _DemandingValue = false;
                 _demandingPlayer = null;
             }
             EndTurn();
