@@ -30,7 +30,13 @@ public abstract class GameEngine : INotifyPropertyChanged
     // TU SĄ OBJEKTY Z XML:
     public Button LastPlayedCard {get;  set; }
     public Button DrawButton {get;  set; }
-    
+
+    public Grid MakaoColorPanel { get; set; }
+
+    public Grid MakaoValuePanel { get; set; }
+
+
+
     protected GameEngine()
     {
         Players = new List<Player>();

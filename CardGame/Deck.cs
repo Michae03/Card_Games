@@ -63,60 +63,39 @@ public class Deck
         };
     }
 
-    public void CreateExplodingKittensDeck()
+    public void CreateMakaoDeck()
     {
         Cards = new List<Card>
         {
-            new ExplodingKittenCard("Kitten"),
-            new ExplodingKittenCard("Kitten"),
-            new ExplodingKittenCard("Kitten"),
-            new ExplodingKittenCard("Kitten"),
-            new ExplodingKittenCard("Kitten"),
-            new ExplodingKittenCard("Kitten"),
+            new MakaoCard("Pik","5"),
+            new MakaoCard("Kier","5"),
+            new MakaoCard("Trefl","5"),
+            new MakaoCard("Karo","5"),
 
-            new ExplodingKittenCard("Defuse"),
-            new ExplodingKittenCard("Defuse"),
-            new ExplodingKittenCard("Defuse"),
-            new ExplodingKittenCard("Defuse"),
-            new ExplodingKittenCard("Defuse"),
-            new ExplodingKittenCard("Defuse"),
+            new MakaoCard("Pik","6"),
+            new MakaoCard("Kier","6"),
+            new MakaoCard("Trefl","6"),
+            new MakaoCard("Karo","6"),
 
-            // ---------- ZOBACZ 3 KARTY Z TALII ----------
+            new MakaoCard("Pik","Walet"),
+            new MakaoCard("Kier","Walet"),
+            new MakaoCard("Trefl","Walet"),
+            new MakaoCard("Karo","Walet"),
 
-            new ExplodingKittenCard("See Future"),
-            new ExplodingKittenCard("See Future"),
-            new ExplodingKittenCard("See Future"),
-            new ExplodingKittenCard("See Future"),
-            new ExplodingKittenCard("See Future"),
+           // new MakaoCard("Pik","5"),
+           // new MakaoCard("Kier","5"),
+           // new MakaoCard("Trefl","5"),
+           // new MakaoCard("Karo","5"),
 
-            // ---------- DOBIERASZ 0 NASTEPNY GRACZ DOBIERA 2 ----------
+            new MakaoCard("Pik","Dama"),
+            new MakaoCard("Pik","Dama"),
+            new MakaoCard("Pik","Dama"),
+            new MakaoCard("Karo","Dama"),
 
-            new ExplodingKittenCard("Attack"),
-            new ExplodingKittenCard("Attack"),
-            new ExplodingKittenCard("Attack"),
-            new ExplodingKittenCard("Attack"),
-
-            // ---------- POMIN TURE ----------
-
-            new ExplodingKittenCard("Skip"),
-            new ExplodingKittenCard("Skip"),
-            new ExplodingKittenCard("Skip"),
-            new ExplodingKittenCard("Skip"),
-
-            // ---------- PRZETASUJ TALIE ----------
-
-            new ExplodingKittenCard("Shuffle"),
-            new ExplodingKittenCard("Shuffle"),
-            new ExplodingKittenCard("Shuffle"),
-            new ExplodingKittenCard("Shuffle"),
-
-            // ---------- WYBIERASZ JEDNA KARTE PRZECIWNIKA ----------
-
-            new ExplodingKittenCard("Favor"),
-            new ExplodingKittenCard("Favor"),
-            new ExplodingKittenCard("Favor"),
-            new ExplodingKittenCard("Favor"),
-
+            new MakaoCard("Pik","Król"),
+            new MakaoCard("Pik","Król"),
+            new MakaoCard("Pik","Król"),
+            new MakaoCard("Karo","Król"),
 
         };
     }
