@@ -182,9 +182,13 @@ public partial class Member : GameEngine
 
         GameData GameData = new GameData();
         GameData.dateTime = DateTime.Now;
-        GameData.gameNumber = 1;
+        GameData.gameNumber = History.Games.Count();
         GameData.category = "member";
-        //GameData.winner = CurrentPlayer.user;
+        GameData.winner = CurrentPlayer.Name;
+        GameData.numberOfPlayers = Players.Count;
+
+        History.Add(GameData);
+
 
     }
 }
