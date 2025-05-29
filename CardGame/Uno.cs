@@ -296,6 +296,30 @@ public class UnoCard : Card
     {
         Color = color;
         Value = value;
+        var brush = new SolidColorBrush();
+        switch (color)
+        {
+            case ("Blue"):
+                brush = new SolidColorBrush(Colors.Blue);
+                break;
+            case ("Red"):
+                brush = new SolidColorBrush(Colors.Red);
+                break;
+            case ("Yellow"):
+                brush = new SolidColorBrush(Colors.Yellow);
+                break;
+            case ("Green"):
+                brush = new SolidColorBrush(Colors.Green);
+                break;
+            case ("Any"):
+                brush = new SolidColorBrush(Colors.White);
+                break;
+            default:
+                brush = new SolidColorBrush(Colors.Gray);
+                break;
+        }
+
+        UIColor = brush;
     }
     public override void Play()
     {

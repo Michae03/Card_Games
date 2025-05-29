@@ -20,7 +20,7 @@ public partial class MainWindow : Window
         HideAllGameElements();
     }
 
-    // Ukrywa wszystkie elementy gry z GamePanel
+
     private void HideAllGameElements()
     {
         ColorChangePanel.IsVisible = false;
@@ -36,7 +36,7 @@ public partial class MainWindow : Window
         PlayerName.IsVisible = false;
     }
 
-    // Pokazuje elementy charakterystyczne dla Uno
+
     private void ShowUnoElements()
     {
         HideAllGameElements();
@@ -49,7 +49,7 @@ public partial class MainWindow : Window
         PlayerName.IsVisible = true;
     }
 
-    // Pokazuje elementy charakterystyczne dla Makao
+
     private void ShowMakaoElements()
     {
         HideAllGameElements();
@@ -63,7 +63,7 @@ public partial class MainWindow : Window
         PlayerName.IsVisible = true;
     }
 
-    // Pokazuje elementy charakterystyczne dla Member
+ 
     private void ShowMemberElements()
     {
         HideAllGameElements();
@@ -72,7 +72,7 @@ public partial class MainWindow : Window
         ConfirmButton.IsVisible = true;
         LastPlayedCard.IsVisible = true;
         Hand.IsVisible = true;
-        PlayerName.IsVisible = true;
+        PlayerName.IsVisible = true
     }
 
     public void InitializeGameObjects()
