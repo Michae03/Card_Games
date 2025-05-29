@@ -18,6 +18,7 @@
             <TextBlock Name="PlayersList" HorizontalAlignment="Center"> </TextBlock>
             <TextBox Name="PlayerNameMenu" Width="100"> </TextBox>
             <Button Click="AddPlayer_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Dodaj gracza</Button>
+            <Button Click="PlayMakao_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Makao</Button>
             <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
             <Button Click="PlayMember_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Członka</Button>
 			<Button Click="ShowHistory_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Pokaż historię gier</Button>
@@ -50,7 +51,48 @@
 				<Button Name="PlusButton" Click="Plus_OnClick"> + </Button>
 				<Button Name="MinusButton" Click="Minus_OnClick"> - </Button>
 				<Button Name="ConfirmButton" Click="Confirm_OnClick"> Zatwierdź </Button>
-            </StackPanel>
+			</StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" Spacing="20">
+				<Grid Name="MakaoColorPanel" VerticalAlignment="Center" HorizontalAlignment="Center" >
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Button Tag="Trefl" Grid.Row="0" Grid.Column="0" Click="MakaoColorChange_OnClick" Width="40" Height="40" Content="♣" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="Karo" Grid.Row="0" Grid.Column="1" Click="MakaoColorChange_OnClick" Width="40" Height="40" Content="♦" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="Kier" Grid.Row="1" Grid.Column="0" Click="MakaoColorChange_OnClick" Width="40" Height="40" Content="♥" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="Pik" Grid.Row="1" Grid.Column="1" Click="MakaoColorChange_OnClick" Width="40" Height="40" Content="♠" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+				</Grid>
+				
+			</StackPanel>
+			<!-- do makao panel wyboru wartosci-->
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0" Spacing="20">
+				<Grid Name="MakaoValuePanel" VerticalAlignment="Center" HorizontalAlignment="Center" >
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Button Tag="5" Grid.Row="0" Grid.Column="0" Click="MakaoValueChange_OnClick" Width="40" Height="40" Content="5" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="6" Grid.Row="0" Grid.Column="1" Click="MakaoValueChange_OnClick" Width="40" Height="40" Content="6" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="7" Grid.Row="0" Grid.Column="2" Click="MakaoValueChange_OnClick" Width="40" Height="40" Content="7" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="8" Grid.Row="1" Grid.Column="0" Click="MakaoValueChange_OnClick" Width="40" Height="40" Content="8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="9" Grid.Row="1" Grid.Column="1" Click="MakaoValueChange_OnClick" Width="40" Height="40" Content="9" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="10" Grid.Row="1" Grid.Column="2" Click="MakaoValueChange_OnClick" Width="40" Height="40" Content="10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+					<Button Tag="Dama" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Click="MakaoValueChange_OnClick" Width="120" Height="40" Content="Dama" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+				</Grid>
+
+			</StackPanel>
 
             <TextBlock Name="PlayerName" FontSize="30" Text="{Binding CurrentPlayerName}" HorizontalAlignment="Center"/>
 

@@ -19,6 +19,7 @@ public partial class MainWindow : Window
     public void InitializeGameObjects() 
     {
         GameEngine.ColorChangePanel = ColorChangePanel;
+        GameEngine.MakaoColorPanel = MakaoColorPanel;
         GameEngine.DrawButton = DrawButton;
         GameEngine.LastPlayedCard = LastPlayedCard;
     }
@@ -69,6 +70,21 @@ public partial class MainWindow : Window
             GameEngine.Players.Add(new Player(u.name));
         }
     }
+    private void MakaoColorChange_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && GameEngine is Makao makao)
+        {
+            makao.MakaoHandleColorButton_click(button.Tag.ToString());       
+        }
+    }
+
+    private void MakaoValueChange_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && GameEngine is Makao makao)
+        {
+            makao.MakaoHandleValueButton_click(button.Tag.ToString());
+        }
+    }
     private void PlayUno_OnClick(object? sender, RoutedEventArgs e)
     {
 
@@ -101,6 +117,24 @@ public partial class MainWindow : Window
         GamePanel.IsVisible = true;
         MenuPanel.IsVisible = false;
         ConfirmButton.IsVisible = true;
+        
+    }
+
+    private void PlayMakao_OnClick(object? sender, RoutedEventArgs e)
+    {
+        GameEngine = new Makao();
+        GameEngine.Players.Add(new Player("Gracz 1"));
+        GameEngine.Players.Add(new Player("Gracz 2"));
+        GameEngine.DrawButton = DrawButton;
+        GameEngine.LastPlayedCard = LastPlayedCard;
+        GameEngine.MakaoColorPanel = MakaoColorPanel;
+        GameEngine.MakaoValuePanel = MakaoValuePanel;
+        GameEngine.RunGame();
+        DataContext = GameEngine;
+        MakaoColorPanel.IsVisible = false;
+        MakaoValuePanel.IsVisible = false;
+        GamePanel.IsVisible = true;
+        MenuPanel.IsVisible = false;
 
     }
     

@@ -35,6 +35,12 @@ public abstract class GameEngine : INotifyPropertyChanged
     public Button DrawButton {get;  set; }
     public Grid ColorChangePanel { get; set; }
     
+    public Grid MakaoColorPanel { get; set; }
+
+    public Grid MakaoValuePanel { get; set; }
+
+
+
     protected GameEngine()
     {
         Players = new List<Player>();
