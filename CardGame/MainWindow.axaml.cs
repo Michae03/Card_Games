@@ -48,7 +48,8 @@ public partial class MainWindow : Window
 
     private void AddPlayer_OnClick(object? sender, RoutedEventArgs e)
     {
-        string Name = PlayerName.Text;
+        
+        string Name = PlayerNameMenu.Text;
         if (Name is not null) Users.Add(Name);
         PlayersList.Text = Users.ShowUsers();
     }

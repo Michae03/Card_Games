@@ -15,7 +15,7 @@
                     HorizontalAlignment="Center"
                     IsVisible="True"> 
             <TextBlock Name="PlayersList" HorizontalAlignment="Center"> </TextBlock>
-            <TextBox Name="PlayerName" Width="100"> </TextBox>
+            <TextBox Name="PlayerNameMenu" Width="100"> </TextBox>
             <Button Click="AddPlayer_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Dodaj gracza</Button>
             <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
             <Button Click="PlayMember_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Członka</Button>
