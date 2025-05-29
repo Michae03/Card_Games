@@ -10,7 +10,7 @@ public partial class MainWindow : Window
     
     public GameEngine GameEngine;
     private Users Users = new Users();
-    private History History = new History();
+   
     public MainWindow()
     {
         InitializeComponent();
@@ -81,6 +81,12 @@ public partial class MainWindow : Window
         ColorChangePanel.IsVisible = false;
         MenuPanel.IsVisible = false;
         ConfirmButton.IsVisible = true;
+
+    }
+
+    private void ShowHistory_OnClick(object? sender, RoutedEventArgs e)
+    {
+        HistoryList.Text = GameEngine.History.Show();
 
     }
 

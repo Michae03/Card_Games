@@ -13,12 +13,14 @@
         <StackPanel Name="MenuPanel"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    IsVisible="True"> 
+                    IsVisible="True">
+            <TextBlock Name="HistoryList" HorizontalAlignment="Center"> </TextBlock> 
             <TextBlock Name="PlayersList" HorizontalAlignment="Center"> </TextBlock>
             <TextBox Name="PlayerNameMenu" Width="100"> </TextBox>
             <Button Click="AddPlayer_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Dodaj gracza</Button>
             <Button Click="PlayUno_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Uno</Button>
             <Button Click="PlayMember_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Zagraj Członka</Button>
+			<Button Click="ShowHistory_OnClick" HorizontalAlignment="Center" VerticalAlignment="Center">Pokaż historię gier</Button>
         </StackPanel>
 
         <!-- Game Panel -->

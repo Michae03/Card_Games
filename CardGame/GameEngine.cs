@@ -28,7 +28,8 @@ public abstract class GameEngine : INotifyPropertyChanged
     protected Deck DrawDeck = new Deck(); 
     protected Deck DiscardDeck = new Deck();
     protected TaskCompletionSource<bool>? WaitForPlayerAction;
-    
+    public static History History = new History();
+
     // TU SĄ OBJEKTY Z XML:
     public Button LastPlayedCard {get;  set; }
     public Button DrawButton {get;  set; }
@@ -37,6 +38,7 @@ public abstract class GameEngine : INotifyPropertyChanged
     protected GameEngine()
     {
         Players = new List<Player>();
+
     } 
     public abstract void RunGame();
 
