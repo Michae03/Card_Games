@@ -425,6 +425,12 @@ public partial class Makao : GameEngine
         }
 
     }
+    //to jest tylko po to by działała część JZ
+    public override void HandleCardConfirm(object sender) { }
+    public override void HandlePlus(Object sender) { }
+    public override void HandleMinus(Object sender) { }
+    // koniec części jagody
+
 }
 public class MakaoCard : Card
 {

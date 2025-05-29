@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -7,22 +6,84 @@ namespace CardGame;
 
 public partial class MainWindow : Window
 {
-    
     public GameEngine GameEngine;
     private Users Users = new Users();
-   
+
     public MainWindow()
     {
         InitializeComponent();
+
+        // Na start pokazujemy menu, ukrywamy panel gry
+        MenuPanel.IsVisible = true;
+        GamePanel.IsVisible = false;
+
+        HideAllGameElements();
     }
 
-    public void InitializeGameObjects() 
+    // Ukrywa wszystkie elementy gry z GamePanel
+    private void HideAllGameElements()
+    {
+        ColorChangePanel.IsVisible = false;
+        MakaoColorPanel.IsVisible = false;
+        MakaoValuePanel.IsVisible = false;
+
+        DrawButton.IsVisible = false;
+        PlusButton.IsVisible = false;
+        MinusButton.IsVisible = false;
+        ConfirmButton.IsVisible = false;
+        LastPlayedCard.IsVisible = false;
+        Hand.IsVisible = false;
+        PlayerName.IsVisible = false;
+    }
+
+    // Pokazuje elementy charakterystyczne dla Uno
+    private void ShowUnoElements()
+    {
+        HideAllGameElements();
+
+        ColorChangePanel.IsVisible = true;
+        DrawButton.IsVisible = true;
+        ConfirmButton.IsVisible = true;
+        LastPlayedCard.IsVisible = true;
+        Hand.IsVisible = true;
+        PlayerName.IsVisible = true;
+    }
+
+    // Pokazuje elementy charakterystyczne dla Makao
+    private void ShowMakaoElements()
+    {
+        HideAllGameElements();
+
+        MakaoColorPanel.IsVisible = true;
+        MakaoValuePanel.IsVisible = true;
+        DrawButton.IsVisible = true;
+        ConfirmButton.IsVisible = true;
+        LastPlayedCard.IsVisible = true;
+        Hand.IsVisible = true;
+        PlayerName.IsVisible = true;
+    }
+
+    // Pokazuje elementy charakterystyczne dla Member
+    private void ShowMemberElements()
+    {
+        HideAllGameElements();
+
+        DrawButton.IsVisible = true;
+        ConfirmButton.IsVisible = true;
+        LastPlayedCard.IsVisible = true;
+        Hand.IsVisible = true;
+        PlayerName.IsVisible = true;
+    }
+
+    public void InitializeGameObjects()
     {
         GameEngine.ColorChangePanel = ColorChangePanel;
         GameEngine.MakaoColorPanel = MakaoColorPanel;
+        GameEngine.MakaoValuePanel = MakaoValuePanel;
         GameEngine.DrawButton = DrawButton;
         GameEngine.LastPlayedCard = LastPlayedCard;
     }
+
     private void Card_OnClick(object? sender, RoutedEventArgs e)
     {
         GameEngine.HandleCardClick(sender);
@@ -42,6 +103,7 @@ public partial class MainWindow : Window
     {
         GameEngine.HandleMinus(sender);
     }
+
     private void DrawACard_OnClick(object? sender, RoutedEventArgs e)
     {
         GameEngine.HandleDrawACardClick(sender);
@@ -49,32 +111,27 @@ public partial class MainWindow : Window
 
     private void AddPlayer_OnClick(object? sender, RoutedEventArgs e)
     {
-        
         string Name = PlayerNameMenu.Text;
-        if (Name is not null) Users.Add(Name);
-        PlayersList.Text = Users.ShowUsers();
+        if (!string.IsNullOrWhiteSpace(Name))
+        {
+            Users.Add(Name);
+            PlayersList.Text = Users.ShowUsers();
+        }
     }
 
-    private void ColorChange_OnClick(object? sender, RoutedEventArgs e) 
+    private void ColorChange_OnClick(object? sender, RoutedEventArgs e)
     {
-        if (sender is Button button && GameEngine is Uno uno) 
+        if (sender is Button button && GameEngine is Uno uno)
         {
             uno.HandleColorButton_click(button.Tag.ToString());
         }
     }
 
-    private void AddPlayers()
-    {
-        foreach (User u in Users.listOfPlayers)
-        {
-            GameEngine.Players.Add(new Player(u.name));
-        }
-    }
     private void MakaoColorChange_OnClick(object? sender, RoutedEventArgs e)
     {
         if (sender is Button button && GameEngine is Makao makao)
         {
-            makao.MakaoHandleColorButton_click(button.Tag.ToString());       
+            makao.MakaoHandleColorButton_click(button.Tag.ToString());
         }
     }
 
@@ -85,58 +142,59 @@ public partial class MainWindow : Window
             makao.MakaoHandleValueButton_click(button.Tag.ToString());
         }
     }
+
     private void PlayUno_OnClick(object? sender, RoutedEventArgs e)
     {
-
         GameEngine = new Uno();
         InitializeGameObjects();
         AddPlayers();
         GameEngine.RunGame();
         DataContext = GameEngine;
-        GamePanel.IsVisible = true;
-        ColorChangePanel.IsVisible = false;
+
         MenuPanel.IsVisible = false;
-        ConfirmButton.IsVisible = true;
+        GamePanel.IsVisible = true;
 
-    }
-
-    private void ShowHistory_OnClick(object? sender, RoutedEventArgs e)
-    {
-        HistoryList.Text = GameEngine.History.Show();
-
+        ShowUnoElements();
     }
 
     private void PlayMember_OnClick(object? sender, RoutedEventArgs e)
     {
         GameEngine = new Member();
+        InitializeGameObjects();
         AddPlayers();
-        GameEngine.DrawButton = DrawButton;
-        GameEngine.LastPlayedCard = LastPlayedCard;
         GameEngine.RunGame();
         DataContext = GameEngine;
-        GamePanel.IsVisible = true;
+
         MenuPanel.IsVisible = false;
-        ConfirmButton.IsVisible = true;
-        
+        GamePanel.IsVisible = true;
+
+        ShowMemberElements();
     }
 
     private void PlayMakao_OnClick(object? sender, RoutedEventArgs e)
     {
         GameEngine = new Makao();
-        GameEngine.Players.Add(new Player("Gracz 1"));
-        GameEngine.Players.Add(new Player("Gracz 2"));
-        GameEngine.DrawButton = DrawButton;
-        GameEngine.LastPlayedCard = LastPlayedCard;
-        GameEngine.MakaoColorPanel = MakaoColorPanel;
-        GameEngine.MakaoValuePanel = MakaoValuePanel;
+        InitializeGameObjects();
+        AddPlayers();
         GameEngine.RunGame();
         DataContext = GameEngine;
-        MakaoColorPanel.IsVisible = false;
-        MakaoValuePanel.IsVisible = false;
-        GamePanel.IsVisible = true;
+
         MenuPanel.IsVisible = false;
+        GamePanel.IsVisible = true;
 
+        ShowMakaoElements();
     }
-    
 
+    private void AddPlayers()
+    {
+        foreach (User u in Users.listOfPlayers)
+        {
+            GameEngine.Players.Add(new Player(u.name));
+        }
+    }
+
+    private void ShowHistory_OnClick(object? sender, RoutedEventArgs e)
+    {
+        HistoryList.Text = GameEngine.History.Show();
+    }
 }
