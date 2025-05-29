@@ -72,7 +72,9 @@ public partial class MainWindow : Window
         ConfirmButton.IsVisible = true;
         LastPlayedCard.IsVisible = true;
         Hand.IsVisible = true;
-        PlayerName.IsVisible = true
+        PlayerName.IsVisible = true;
+        PlusButton.IsVisible = true;
+        MinusButton.IsVisible = true;
     }
 
     public void InitializeGameObjects()
